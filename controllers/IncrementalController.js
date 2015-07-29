@@ -4,30 +4,32 @@ StarTripApp.controller('IncrementalCtrl', ['$scope', '$interval', function($scop
 
   //raw resources
   $scope.plutonium = 0;
-  $scope.knowledge = 0;
   $scope.dilithium = 0;
+  $scope.knowledge = 0;
 
-  //things to build
+  //ships to build
   $scope.numNuclearShips = 0;
   $scope.numWarpShips = 0;
-  $scope.numMasterWidgeteers = 0;
-
-  //stuff costs
+  //ship costs
   $scope.nuclearShipCost = 10;
   $scope.warpShipCost = 10;
 
-  //research costs
-  $scope.warpDriveCost = 10;
-
-  $scope.masterWidgeteerCost = 15;
+  //Weapons and shields
+  $scope.weaponsLvl = 0;
+  $scope.shieldsLvl = 0;
 
   // Resource acquisition rates
   $scope.plutoniumRate = 0;
   $scope.dilithiumRate = 0;
   $scope.knowledgeRate = 0;
 
+  //research costs
+  $scope.warpDriveResearchCost = 10;
+  $scope.weaponsResearchPlutoniumCost = 100;
+  $scope.weaponsResearchKnowledgeCost = 20;
   //Tech track
   $scope.warpDriveResearched = false;
+
 
   // Increase plutonium every time mine-plutonium is clicked
   $scope.minePlutonium = function() {
@@ -49,6 +51,20 @@ StarTripApp.controller('IncrementalCtrl', ['$scope', '$interval', function($scop
       $scope.nuclearShipCost = Math.ceil($scope.nuclearShipCost * 1.1);
   }
 
+  //research warp drive in order to build warp ships
+  $scope.researchWarpDrive = function() {
+      $scope.knowledge -= $scope.warpDriveResearchCost;
+      $scope.warpDriveResearched = true;
+  }
+
+  $scope.researchWeapons = function() {
+      $scope.plutonium -= $scope.weaponsResearchPlutoniumCost;
+      $scope.knowledge -= $scope.weaponsResearchKnowledgeCost;
+      $scope.weaponsLvl += 1;
+      $scope.weaponsResearchCost = Math.ceil($scope.weaponsResearchCost * 1.1);
+  }
+
+  //build a warp ship
   $scope.buildWarpShip = function() {
       $scope.numWarpShips++;
 
@@ -59,30 +75,22 @@ StarTripApp.controller('IncrementalCtrl', ['$scope', '$interval', function($scop
       $scope.warpShipCost = Math.ceil($scope.warpShipCost * 1.1);
   }
 
-  // Ditto for master-widgeteer... you get the idea
-  $scope.hireMasterWidgeteer = function() {
-      $scope.numMasterWidgeteers++;
-      $scope.distance -= $scope.masterWidgeteerCost;
-      $scope.masterWidgeteerCost = Math.ceil($scope.masterWidgeteerCost * 1.1);
-  }
-
-  $scope.researchWarpDrive = function() {
-      $scope.knowledge -= $scope.warpDriveCost;
-      $scope.warpDriveResearched = true;
+  //Update rate of resource acquisition
+  $scope.updateAcquisitionRates = function() {
+      //nuclear ships add 0.1 plutonium/s, warp ships add 0.5 plutonium/s
+      $scope.plutoniumRate = ($scope.numNuclearShips * 1/10 + $scope.numWarpShips * 5/10);
+      //warp ships add 0.1 dilithium/s
+      $scope.dilithiumRate = ($scope.numWarpShips * 1/10);
+      // nuclear ships add 0.1 knowledge per second, warp ships add 0.2 knowledge per second
+      $scope.knowledgeRate = ($scope.numNuclearShips * 1 / 10 + $scope.numWarpShips * 2/10);
   }
 
   // Run UI update code every 10ms
   $interval(function() {
-      // nuclear ships add 1 plutonium per second (1/100 every 10ms)
-      // Warp ships add 5 plutonium per second and 1 dilithium/s (5/100 every 10ms)
-      $scope.plutoniumRate = ($scope.numNuclearShips + $scope.numWarpShips * 5);
-      $scope.dilithiumRate = ($scope.numWarpShips);
-      // nuclear ships add 0.1 knowledge per second, warp ships add 0.2 knowledge per second
-      $scope.knowledgeRate = ($scope.numNuclearShips * 1 / 10 + $scope.numWarpShips * 2);
-
-      $scope.knowledge += ($scope.numNuclearShips * 1 / 1000 + $scope.numWarpShips * 2/100);
-      $scope.plutonium += ($scope.numNuclearShips * 1 / 100 + $scope.numWarpShips * 5 / 100);
-      $scope.dilithium += ($scope.numWarpShips * 1/100);
+      $scope.updateAcquisitionRates();
+      $scope.plutonium += ($scope.plutoniumRate/100);
+      $scope.dilithium += ($scope.dilithiumRate/100);
+      $scope.knowledge += ($scope.knowledgeRate/100);
 
   }, 10);
 }]);

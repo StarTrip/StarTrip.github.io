@@ -26,36 +26,47 @@
 
       <h2>Store:</h2>
 
-      <button id="nuclear-ship" class="btn btn-primary"
-              ng-click="buildNuclearShip()"
-              ng-disabled="nuclearShipCost > plutonium"
-              data-toggle="tooltip"
-              title="Ships can explore nearby systems, gaining knowledge and mining plutonium">
-              Build Nuclear-Powered Ship
-              <br>Cost: {{nuclearShipCost}} plutonium
-            </button>
+        <button id="nuclear-ship" class="btn btn-primary"
+                ng-click="buildNuclearShip()"
+                ng-disabled="nuclearShipCost > plutonium"
+                data-toggle="tooltip"
+                title="Ships can explore nearby systems, gaining knowledge and mining plutonium">
+                Build Nuclear-Powered Ship
+                <br>Cost: {{nuclearShipCost}} plutonium
+              </button>
 
-        <button id="warp-ship" class="btn btn-primary"
-              ng-show="warpDriveResearched"
-              ng-click="buildWarpShip()"
-              ng-disabled="warpShipCost > dilithium"
-              data-toggle="tooltip"
-              title="Ships can explore nearby systems, gaining knowledge and mining plutonium and dilithium">
-              Build Warp-Drive Ship
-              <br>Cost: {{warpShipCost}} dilithium
-            </button>
+          <button id="warp-ship" class="btn btn-primary"
+                ng-show="warpDriveResearched"
+                ng-click="buildWarpShip()"
+                ng-disabled="warpShipCost > dilithium"
+                data-toggle="tooltip"
+                title="Ships can explore nearby systems, gaining knowledge and mining plutonium and dilithium">
+                Build Warp-Drive Ship
+                <br>Cost: {{warpShipCost}} dilithium
+              </button>
+
+      <h2>Weapons and Shields</h2>
+
+        <button id="weapons" class="btn btn-primary"
+                ng-click="researchWeapons()"
+                ng-disabled="weaponsResearchPlutoniumCost > plutonium || weaponsResearchKnowledgeCost > knowledge"
+                data-toggle="tooltip"
+                title="Be prepared for an enemy attack by equipping your ship with state-of-the-art weapons!">
+                Research Weapons Level {{weaponsLvl + 1 | number}}
+                <br>Cost: {{weaponsResearchPlutoniumCost}} plutonium and {{weaponsResearchKnowledgeCost}} knowledge
+              </button>
 
       <h2>Technology:</h2>
 
-      <button id="warp-drive" class="btn btn-primary"
-              ng-show="numNuclearShips>=5 && !warpDriveResearched"
-              ng-click="researchWarpDrive()"
-              ng-disabled="warpDriveCost > knowledge"
-              data-toggle="tooltip"
-              title="Lets you build Warp Drive Ships!">
-              Research Warp Drive
-              <br>Cost: {{warpDriveCost}} knowledge
-            </button>
+        <button id="warp-drive" class="btn btn-primary"
+                ng-show="numNuclearShips>=5 && !warpDriveResearched"
+                ng-click="researchWarpDrive()"
+                ng-disabled="warpDriveResearchCost > knowledge"
+                data-toggle="tooltip"
+                title="Lets you build Warp Drive Ships!">
+                Research Warp Drive
+                <br>Cost: {{warpDriveResearchCost}} knowledge
+              </button>
   </div>
 </div>
 
