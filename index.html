@@ -17,12 +17,12 @@
         <small> +{{knowledgeRate | number:1}}/s</small>
       </h1>
 
-      <div id="mine-plutonium" class="btn btn-primary" ng-click="minePlutonium()">Mine Plutonium</div>
-      <div id="mine-dilithium" class="btn btn-primary" ng-show="numNuclearShips>=5" ng-click="mineDilithium()">Mine Dilithium</div>
+      <button id="mine-plutonium" class="btn btn-primary" ng-click="minePlutonium()">Mine Plutonium</button>
+      <button id="mine-dilithium" class="btn btn-primary" ng-show="numNuclearShips>=5" ng-click="mineDilithium()">Mine Dilithium</button>
 
       <h2>Inventory:</h2>
-        <button ng-show="numNuclearShips">Nuclear-Powered Ships: {{numNuclearShips}}</button>
-        <button ng-show="numWarpShips">Warp-Drive Ships: {{numWarpShips}}</button>
+        <div ng-show="numNuclearShips">Nuclear-Powered Ships: {{numNuclearShips}}</div>
+        <div ng-show="numWarpShips">Warp-Drive Ships: {{numWarpShips}}</div>
 
       <h2>Store:</h2>
 
