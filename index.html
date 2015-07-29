@@ -21,21 +21,21 @@
       <div id="mine-dilithium" class="btn btn-primary" ng-show="numNuclearShips>=5" ng-click="mineDilithium()">Mine Dilithium</div>
 
       <h2>Inventory:</h2>
-        <div ng-show="numNuclearShips">Nuclear-Powered Ships: {{numNuclearShips}}</div>
-        <div ng-show="numWarpShips">Warp-Drive Ships: {{numWarpShips}}</div>
+        <button ng-show="numNuclearShips">Nuclear-Powered Ships: {{numNuclearShips}}</button>
+        <button ng-show="numWarpShips">Warp-Drive Ships: {{numWarpShips}}</button>
 
       <h2>Store:</h2>
 
-      <div id="nuclear-ship" class="btn btn-primary"
+      <button id="nuclear-ship" class="btn btn-primary"
               ng-click="buildNuclearShip()"
               ng-disabled="nuclearShipCost > plutonium"
               data-toggle="tooltip"
               title="Ships can explore nearby systems, gaining knowledge and mining plutonium">
               Build Nuclear-Powered Ship
               <br>Cost: {{nuclearShipCost}} plutonium
-            </div>
+            </button>
 
-        <div id="warp-ship" class="btn btn-primary"
+        <button id="warp-ship" class="btn btn-primary"
               ng-show="warpDriveResearched"
               ng-click="buildWarpShip()"
               ng-disabled="warpShipCost > dilithium"
@@ -43,11 +43,11 @@
               title="Ships can explore nearby systems, gaining knowledge and mining plutonium and dilithium">
               Build Warp-Drive Ship
               <br>Cost: {{warpShipCost}} dilithium
-            </div>
+            </button>
 
       <h2>Technology:</h2>
 
-      <div id="warp-drive" class="btn btn-primary"
+      <button id="warp-drive" class="btn btn-primary"
               ng-show="numNuclearShips>=5 && !warpDriveResearched"
               ng-click="researchWarpDrive()"
               ng-disabled="warpDriveCost > knowledge"
@@ -55,7 +55,7 @@
               title="Lets you build Warp Drive Ships!">
               Research Warp Drive
               <br>Cost: {{warpDriveCost}} knowledge
-            </div>
+            </button>
   </div>
 </div>
 
