@@ -2,33 +2,34 @@
 <html ng-app="StarTripApp">
 <head>
   <title>Star Trip</title>
+  <link rel="shortcut icon" href="assets/favicon.ico">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
   <div ng-controller="IncrementalCtrl">
     <div class="container">
-      <h1>Plutonium: <span id="plutonium-count">{{plutonium | number:0}}</span>
+      <h1>Plutonium: <span id="plutonium-count">{{getPlutonium() | number:1}}</span>
         <small> +{{plutoniumRate | number:1}}/s</small>
       </h1>
-      <h1 ng-show="dilithium">Dilithium: <span id="dilithium-count">{{dilithium | number:0}}</span>
+      <h1 ng-show="getDilithium()">Dilithium: <span id="dilithium-count">{{getDilithium() | number:1}}</span>
         <small> +{{dilithiumRate | number:1}}/s</small>
       </h1>
-      <h1 ng-show="knowledge">Knowledge: <span id="knowledge-count">{{knowledge | number:0}}</span>
+      <h1 ng-show="getKnowledge()">Knowledge: <span id="knowledge-count">{{getKnowledge() | number:1}}</span>
         <small> +{{knowledgeRate | number:1}}/s</small>
       </h1>
 
       <button id="mine-plutonium" class="btn btn-primary" ng-click="minePlutonium()">Mine Plutonium</button>
       <button id="mine-dilithium" class="btn btn-primary" ng-show="numNuclearShips>=5" ng-click="mineDilithium()">Mine Dilithium</button>
 
-      <h2>Inventory:</h2>
+      <h2><img src="assets/knapsack.png">Inventory:</h2>
         <div ng-show="numNuclearShips">Nuclear-Powered Ships: {{numNuclearShips}}</div>
         <div ng-show="numWarpShips">Warp-Drive Ships: {{numWarpShips}}</div>
 
-      <h2>Store:</h2>
+      <h2><img src="assets/rocket.png">Store:</h2>
 
         <button id="nuclear-ship" class="btn btn-primary"
                 ng-click="buildNuclearShip()"
-                ng-disabled="nuclearShipCost > plutonium"
+                ng-disabled="nuclearShipCost > getPlutonium()"
                 data-toggle="tooltip"
                 title="Ships can explore nearby systems, gaining knowledge and mining plutonium">
                 Build Nuclear-Powered Ship
@@ -38,30 +39,39 @@
           <button id="warp-ship" class="btn btn-primary"
                 ng-show="warpDriveResearched"
                 ng-click="buildWarpShip()"
-                ng-disabled="warpShipCost > dilithium"
+                ng-disabled="warpShipCost > getDilithium()"
                 data-toggle="tooltip"
                 title="Ships can explore nearby systems, gaining knowledge and mining plutonium and dilithium">
                 Build Warp-Drive Ship
                 <br>Cost: {{warpShipCost}} dilithium
               </button>
 
-      <h2>Weapons and Shields</h2>
+      <h2><img src="assets/tesla-turret.png">Weapons and Shields</h2>
 
         <button id="weapons" class="btn btn-primary"
                 ng-click="researchWeapons()"
-                ng-disabled="weaponsResearchPlutoniumCost > plutonium || weaponsResearchKnowledgeCost > knowledge"
+                ng-disabled="weaponsResearchPlutoniumCost > getPlutonium() || weaponsResearchKnowledgeCost > getKnowledge()"
                 data-toggle="tooltip"
                 title="Be prepared for an enemy attack by equipping your ship with state-of-the-art weapons!">
                 Research Weapons Level {{weaponsLvl + 1 | number}}
                 <br>Cost: {{weaponsResearchPlutoniumCost}} plutonium and {{weaponsResearchKnowledgeCost}} knowledge
               </button>
 
-      <h2>Technology:</h2>
+          <button id="shields" class="btn btn-primary"
+                  ng-click="researchShields()"
+                  ng-disabled="shieldsResearchPlutoniumCost > getPlutonium() || shieldsResearchKnowledgeCost > getKnowledge()"
+                  data-toggle="tooltip"
+                  title="Be prepared for an enemy attack by equipping your ship with state-of-the-art shields!">
+                  Research Shields Level {{weaponsLvl + 1 | number}}
+                  <br>Cost: {{shieldsResearchPlutoniumCost}} plutonium and {{shieldsResearchKnowledgeCost}} knowledge
+                </button>
+
+      <h2><img src="assets/black-hole-bolas.png">Technology:</h2>
 
         <button id="warp-drive" class="btn btn-primary"
                 ng-show="numNuclearShips>=5 && !warpDriveResearched"
                 ng-click="researchWarpDrive()"
-                ng-disabled="warpDriveResearchCost > knowledge"
+                ng-disabled="warpDriveResearchCost > getKnowledge()"
                 data-toggle="tooltip"
                 title="Lets you build Warp Drive Ships!">
                 Research Warp Drive
@@ -76,7 +86,10 @@
   <!-- code -->
   <script src="js/app.js"></script>
 
+  <!-- Services -->
+  <script src="js/services/inventory.js"></script>
+
   <!-- Controllers -->
-  <script src="controllers/IncrementalController.js"></script>
+  <script src="js/controllers/IncrementalController.js"></script>
 </body>
 </html>
