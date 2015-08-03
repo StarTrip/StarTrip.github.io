@@ -1,37 +1,31 @@
 StarTripApp.service('inventory', function(){
-  //raw resources
-  //var resources = {plutonium:0,dilithium:0,knowledge:0};
-  var plutonium = 0;
-  var dilithium = 0;
-  var knowledge = 0;
+  var resources = {plutonium:0,dilithium:0,knowledge:0};
+  //How much plutonium is added per click
+  var plutoniumPerClick = 1;
+  //How much dilithium is added per click
+  var dilithiumPerClick = 1;
 
-  this.getPlutonium = function(){
-    return plutonium;
+  //Returns the number of resources of type resourceName (e.g. plutonium, dilithium, etc)
+  this.getResourceAmount = function(resourceName){
+    return resources[resourceName];
   };
 
-  //adds the "amount" to the plutonium (amount can be negative)
-  this.addPlutonium = function(amount){
-    plutonium += amount;
-    //resources.plutonium += amount;
+  //Adds amount to the resource resourceName
+  this.addToResourceAmount = function(resourceName, amount){
+    resources[resourceName] += amount;
   };
 
-  this.getDilithium = function(){
-    return dilithium;
+  //Deducts amount from the resource resourceName
+  this.deductFromResourceAmount = function(resourceName, amount){
+    resources[resourceName] -= amount;
   };
 
-  //adds the "amount" to the dilithium (amount can be negative)
-  this.addDilithium = function(amount){
-    dilithium += amount;
+  this.getPlutoniumPerClick = function(){
+    return plutoniumPerClick;
   };
 
-  this.getKnowledge = function(){
-    return knowledge;
+  this.getDilithiumPerClick = function(){
+    return dilithiumPerClick;
   };
-
-  //adds the "amount" to the knowledge (amount can be negative)
-  this.addKnowledge = function(amount){
-    knowledge += amount;
-  };
-
 
 });
