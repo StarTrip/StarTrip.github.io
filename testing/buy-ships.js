@@ -40,6 +40,14 @@ describe('Buy Ships', function() {
         toEqual('1');
   });
 
+  it('should check the plutonium count after buying 1 nuclear ship', function() {
+    minePlutonium(10);
+    buyNuclearShip(1);
+
+    expect(element(by.id('plutonium-count')).getText()).
+        toEqual('0.0');
+  });
+
   it('should mine 66 plutonium and buy 5 nuclear-powered ship', function() {
     minePlutonium(66);
     buyNuclearShip(5);
@@ -93,19 +101,40 @@ describe('Buy Ships', function() {
   });
 
   //Check items that are displayed/not displayed
-  it('should check if the dilithium count is displayed when the site loads', function() {
+  it('should check that the plutonium count is displayed when the site loads', function() {
+    expect(element(by.id('plutonium-count')).isDisplayed()).toBeTruthy();
+  });
+  it('should check that the dilithium count is not displayed when the site loads', function() {
     expect(element(by.id('dilithium-count')).isDisplayed()).toBeFalsy();
   });
-  it('should check if the knowledge count is displayed when the site loads', function() {
+  it('should check that the knowledge count is not displayed when the site loads', function() {
     expect(element(by.id('knowledge-count')).isDisplayed()).toBeFalsy();
   });
-  it('should check if the Mine Dilithium button is displayed when the site loads', function() {
+  it('should check that the Mine Dilithium button is not displayed when the site loads', function() {
     expect(element(by.id('mine-dilithium')).isDisplayed()).toBeFalsy();
   });
-  it('should check if the knowledge count is displayed when a nuclear ship is bought', function() {
+  it('should check that the reseach warp drive button is not displayed when the site loads', function() {
+    expect(element(by.id('warp-drive')).isDisplayed()).toBeFalsy();
+  });
+  it('should check that the knowledge count is displayed when a nuclear ship is bought', function() {
     minePlutonium(10);
     buyNuclearShip(1);
     expect(element(by.id('knowledge-count')).isDisplayed()).toBeTruthy();
   });
+
+  //Check buttons that are enabled/disabled
+  it('should check that the mine plutonium button is enabled when the site loads', function() {
+    expect(element(by.id('mine-plutonium')).isEnabled()).toBeTruthy();
+  });
+  it('should check that the build nuclear ship button is disabled when the site loads', function() {
+    expect(element(by.id('nuclear-ship')).isEnabled()).toBeFalsy();
+  });
+  it('should check that the research weapons button is disabled when the site loads', function() {
+    expect(element(by.id('weapons')).isEnabled()).toBeFalsy();
+  });
+  it('should check that the research shields button is disabled when the site loads', function() {
+    expect(element(by.id('shields')).isEnabled()).toBeFalsy();
+  });
+
 
 });
