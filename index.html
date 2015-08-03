@@ -8,20 +8,20 @@
 <body>
   <div ng-controller="IncrementalCtrl" class="container">
       <h1>Plutonium: <span id="plutonium-count">{{getPlutonium() | number:1}}</span>
-        <small> +{{plutoniumRate | number:1}}/s</small>
+        <small> +<span>{{plutoniumRate | number:1}}</span>/s</small>
       </h1>
       <h1 ng-show="getDilithium()">Dilithium: <span id="dilithium-count">{{getDilithium() | number:1}}</span>
-        <small> +{{dilithiumRate | number:1}}/s</small>
+        <small> +<span>{{dilithiumRate | number:1}}</span>/s</small>
       </h1>
       <h1 ng-show="getKnowledge()">Knowledge: <span id="knowledge-count">{{getKnowledge() | number:1}}</span>
-        <small> +{{knowledgeRate | number:1}}/s</small>
+        <small> +<span>{{knowledgeRate | number:1}}</span>/s</small>
       </h1>
 
       <button id="mine-plutonium" class="btn btn-primary" ng-click="minePlutonium()">Mine Plutonium</button>
       <button id="mine-dilithium" class="btn btn-primary" ng-show="numNuclearShips>=5" ng-click="mineDilithium()">Mine Dilithium</button>
 
       <h2><img src="assets/knapsack.png">Inventory:</h2>
-        <div ng-show="numNuclearShips">Nuclear-Powered Ships: <div>{{numNuclearShips}}</div></div>
+        <div ng-show="numNuclearShips">Nuclear-Powered Ships: <span>{{numNuclearShips}}</span></div>
         <div ng-show="numWarpShips">Warp-Drive Ships: {{numWarpShips}}</div>
 
       <h2><img src="assets/rocket.png">Store:</h2>
