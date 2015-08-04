@@ -1,5 +1,4 @@
 StarTripApp.controller('InventoryController', ['$scope', 'inventory', function($scope, inventory){
-/*
   //resources
   $scope.getPlutonium = function() {
       return inventory.getResourceAmount('plutonium');
@@ -22,6 +21,5 @@ StarTripApp.controller('InventoryController', ['$scope', 'inventory', function($
   $scope.mineDilithium = function() {
       inventory.addToResourceAmount('dilithium', inventory.getDilithiumPerClick());
   };
-  */
 
 }]);
