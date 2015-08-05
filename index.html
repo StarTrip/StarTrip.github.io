@@ -6,78 +6,91 @@
   <link rel="shortcut icon" href="assets/favicon.ico">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
-<body>
+<body ng-app="StarTripApp">
   <div ng-controller="IncrementalCtrl" class="container">
-      <h1>Plutonium: <span id="plutonium-count">{{getPlutonium() | number:1}}</span>
-        <small> +<span>{{plutoniumRate | number:1}}</span>/s</small>
-      </h1>
-      <h1 ng-show="getDilithium()">Dilithium: <span id="dilithium-count">{{getDilithium() | number:1}}</span>
-        <small> +<span>{{dilithiumRate | number:1}}</span>/s</small>
-      </h1>
-      <h1 ng-show="getKnowledge()">Knowledge: <span id="knowledge-count">{{getKnowledge() | number:1}}</span>
-        <small> +<span>{{knowledgeRate | number:1}}</span>/s</small>
-      </h1>
 
-      <button id="mine-plutonium" class="btn btn-primary" ng-click="minePlutonium()">Mine Plutonium</button>
-      <button id="mine-dilithium" class="btn btn-primary" ng-show="numNuclearShips>=5" ng-click="mineDilithium()">Mine Dilithium</button>
 
-      <h2><img src="assets/knapsack.png">Inventory:</h2>
-        <div ng-show="numNuclearShips">Nuclear-Powered Ships: <span>{{numNuclearShips}}</span></div>
-        <div ng-show="numWarpShips">Warp-Drive Ships: <span>{{numWarpShips}}</span></div>
+    <div ng-controller="InventoryController">
+        <h2>Resources:</h2>
+          <h3>Plutonium: <span id="plutonium-count">{{getPlutonium() | number:1}}</span>
+            <small> +{{plutoniumRate | number:1}}/s</small>
+          </h3>
+          <h3 ng-show="getDilithium()">Dilithium: <span id="dilithium-count">{{getDilithium() | number:1}}</span>
+            <small> +{{dilithiumRate | number:1}}/s</small>
+          </h3>
+          <h3 ng-show="getKnowledge()">Knowledge: <span id="knowledge-count">{{getKnowledge() | number:1}}</span>
+            <small> +{{knowledgeRate | number:1}}/s</small>
+          </h3>
 
-      <h2><img src="assets/rocket.png">Store:</h2>
+        <button id="mine-plutonium" class="btn btn-primary" ng-click="minePlutonium()">Mine Plutonium</button>
+        <button id="mine-dilithium" class="btn btn-primary" ng-show="inventory.displayMineDilithiumButton()" ng-click="mineDilithium()">Mine Dilithium</button>
+    </div>
 
-        <button id="nuclear-ship" class="btn btn-primary"
-                ng-click="buildNuclearShip()"
-                ng-disabled="nuclearShipCost > getPlutonium()"
-                data-toggle="tooltip"
-                title="Ships can explore nearby systems, gaining knowledge and mining plutonium">
-                Build Nuclear-Powered Ship
-                <br>Cost: {{nuclearShipCost}} plutonium
-              </button>
+    <div ng-controller="FleetController">
+        <h2>Your Fleet:</h2>
+          <div ng-show="getNumberOfNuclearShips()">Nuclear-Powered Ships: {{getNumberOfNuclearShips()}}</div>
+          <div ng-show="getNumberOfWarpShips()">Warp-Drive Ships: {{getNumberOfWarpShips()}}</div>
+
+        <h2>Build Ships:</h2>
+
+          <button id="nuclear-ship" class="btn btn-primary"
+                  ng-click="buildNuclearShip()"
+                  ng-disabled="buildNuclearShipButtonDisabled()"
+                  data-toggle="tooltip"
+                  title="Ships can explore nearby systems, gaining knowledge and mining plutonium">
+                  Build Nuclear-Powered Ship
+                  <br>Cost: {{getNuclearShipCost()}} plutonium
+                </button>
 
           <button id="warp-ship" class="btn btn-primary"
                 ng-show="warpDriveResearched"
                 ng-click="buildWarpShip()"
-                ng-disabled="warpShipCost > getDilithium()"
+                ng-disabled="buildWarpShipButtonDisabled()"
                 data-toggle="tooltip"
                 title="Ships can explore nearby systems, gaining knowledge and mining plutonium and dilithium">
                 Build Warp-Drive Ship
-                <br>Cost: {{warpShipCost}} dilithium
+                <br>Cost: {{getWarpShipCost()}} dilithium
               </button>
 
-      <h2><img src="assets/tesla-turret.png">Weapons and Shields</h2>
+    </div>
 
-        <button id="weapons" class="btn btn-primary"
-                ng-click="researchWeapons()"
-                ng-disabled="weaponsResearchPlutoniumCost > getPlutonium() || weaponsResearchKnowledgeCost > getKnowledge()"
-                data-toggle="tooltip"
-                title="Be prepared for an enemy attack by equipping your ship with state-of-the-art weapons!">
-                Research Weapons Level {{weaponsLvl + 1 | number}}
-                <br>Cost: {{weaponsResearchPlutoniumCost}} plutonium and {{weaponsResearchKnowledgeCost}} knowledge
-              </button>
+    <div ng-controller="ArmamentController">
 
-          <button id="shields" class="btn btn-primary"
-                  ng-click="researchShields()"
-                  ng-disabled="shieldsResearchPlutoniumCost > getPlutonium() || shieldsResearchKnowledgeCost > getKnowledge()"
+        <h2>Weapons and Shields</h2>
+
+          <button id="weapons" class="btn btn-primary"
+                  ng-click="upgradeWeapons()"
+                  ng-disabled="upgradeWeaponsButtonDisabled()"
                   data-toggle="tooltip"
-                  title="Be prepared for an enemy attack by equipping your ship with state-of-the-art shields!">
-                  Research Shields Level {{weaponsLvl + 1 | number}}
-                  <br>Cost: {{shieldsResearchPlutoniumCost}} plutonium and {{shieldsResearchKnowledgeCost}} knowledge
+                  title="Be prepared for an enemy attack by equipping your ship with state-of-the-art weapons!">
+                  Upgrade Weapons Level {{weaponsLvl + 1 | number}}
+                  <br>Cost: {{getWeaponsPlutoniumCost()}} plutonium and {{getWeaponsKnowledgeCost()}} knowledge
                 </button>
 
-      <h2><img src="assets/black-hole-bolas.png">Technology:</h2>
+          <button id="shields" class="btn btn-primary"
+                  ng-click="upgradeShields()"
+                  ng-disabled="upgradeShieldsButtonDisabled()"
+                  data-toggle="tooltip"
+                  title="Be prepared for an enemy attack by equipping your ship with state-of-the-art shields!">
+                  Upgrade Shields Level {{shieldsLvl + 1 | number}}
+                  <br>Cost: {{getShieldsPlutoniumCost()}} plutonium and {{getShieldsKnowledgeCost()}} knowledge
+                </button>
+    </div>
 
-        <button id="warp-drive" class="btn btn-primary"
-                ng-show="numNuclearShips>=5 && !warpDriveResearched"
-                ng-click="researchWarpDrive()"
-                ng-disabled="warpDriveResearchCost > getKnowledge()"
-                data-toggle="tooltip"
-                title="Lets you build Warp Drive Ships!">
-                Research Warp Drive
-                <br>Cost: {{warpDriveResearchCost}} knowledge
-              </button>
-</div>
+    <!--<div ng-controller="ResearchController"> -->
+        <h2>Research:</h2>
+
+          <button id="warp-drive" class="btn btn-primary"
+                  ng-show="displayResearchWarpDriveButton()"
+                  ng-click="researchWarpDrive()"
+                  ng-disabled="warpDriveResearchCost > getKnowledge()"
+                  data-toggle="tooltip"
+                  title="Lets you build Warp Drive Ships!">
+                  Research Warp Drive
+                  <br>Cost: {{warpDriveResearchCost}} knowledge
+                </button>
+    <!-- </div> -->
+  </div>
 
   <!-- angular -->
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
@@ -87,8 +100,13 @@
 
   <!-- Services -->
   <script src="js/services/inventory.js"></script>
+  <script src="js/services/fleet.js"></script>
 
   <!-- Controllers -->
   <script src="js/controllers/IncrementalController.js"></script>
+  <script src="js/controllers/InventoryController.js"></script>
+  <script src="js/controllers/FleetController.js"></script>
+  <script src="js/controllers/ArmamentController.js"></script>
+  <script src="js/controllers/ResearchController.js"></script>
 </body>
 </html>

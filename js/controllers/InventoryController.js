@@ -1,6 +1,7 @@
-StarTripApp.controller('InventoryController', ['$scope', 'inventory', function($scope, inventory){
+StarTripApp.controller('InventoryController', ['$scope', 'inventory', 'fleet', function($scope, inventory, fleet){
   //resources
   $scope.getPlutonium = function() {
+    alert('test');
       return inventory.getResourceAmount('plutonium');
   };
 
@@ -14,6 +15,7 @@ StarTripApp.controller('InventoryController', ['$scope', 'inventory', function($
 
   // Increase plutonium every time mine-plutonium is clicked
   $scope.minePlutonium = function() {
+    alert('test2');
       inventory.addToResourceAmount('plutonium', inventory.getPlutoniumPerClick());
   };
 
@@ -21,5 +23,10 @@ StarTripApp.controller('InventoryController', ['$scope', 'inventory', function($
   $scope.mineDilithium = function() {
       inventory.addToResourceAmount('dilithium', inventory.getDilithiumPerClick());
   };
+
+  $scope.displayMineDilithiumButton = function(){
+      return fleet.getNumberOfShips('nuclear') >= 5;
+  };
+
 
 }]);
