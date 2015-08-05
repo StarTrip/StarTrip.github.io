@@ -1,4 +1,4 @@
-StarTripApp.controller('IncrementalCtrl', ['$scope', '$interval', 'inventory', 'fleet', function($scope, $interval, inventory, fleet){
+StarTripApp.controller('IncrementalController', ['$scope', '$interval', 'inventory', 'fleet', function($scope, $interval, inventory, fleet){
   // Basic variable declaration - keep track of how many of each
   // item we currently own, and how much the new ones should cost.
 

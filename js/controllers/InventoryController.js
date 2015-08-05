@@ -1,7 +1,6 @@
 StarTripApp.controller('InventoryController', ['$scope', 'inventory', 'fleet', function($scope, inventory, fleet){
   //resources
   $scope.getPlutonium = function() {
-    alert('test');
       return inventory.getResourceAmount('plutonium');
   };
 
@@ -15,7 +14,6 @@ StarTripApp.controller('InventoryController', ['$scope', 'inventory', 'fleet', f
 
   // Increase plutonium every time mine-plutonium is clicked
   $scope.minePlutonium = function() {
-    alert('test2');
       inventory.addToResourceAmount('plutonium', inventory.getPlutoniumPerClick());
   };
 
