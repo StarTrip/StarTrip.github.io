@@ -1,4 +1,4 @@
-StarTripApp.controller('FleetController', ['$scope', 'fleet', 'inventory', function($scope, fleet, inventory){
+StarTripApp.controller('FleetController', ['$scope', 'fleet', 'inventory', 'research', function($scope, fleet, inventory, research){
 
   //ships
   $scope.getNumberOfNuclearShips = function(){
@@ -15,6 +15,10 @@ StarTripApp.controller('FleetController', ['$scope', 'fleet', 'inventory', funct
       inventory.deductFromResourceAmount('plutonium', fleet.getShipCost('nuclear'));
       // Increase cost for the next one
       fleet.increaseShipCost('nuclear', 1.1);
+  };
+
+  $scope.isWarpDriveResearched = function(){
+    return research.isWarpDriveResearched();
   };
 
   $scope.buildWarpShip = function() {

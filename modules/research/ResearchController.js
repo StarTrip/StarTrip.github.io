@@ -7,4 +7,15 @@ StarTripApp.controller('ResearchController', ['$scope', 'research', 'fleet', 'in
     return research.researchWarpDriveButtonDisabled(inventory.getResourceAmount('knowledge'));
   };
 
+  $scope.getWarpDriveResearchCost = function(){
+    return research.getWarpDriveResearchCost();
+  };
+
+  //research warp drive in order to build warp ships
+  $scope.researchWarpDrive = function() {
+    var warpDriveResearchCost = research.getWarpDriveResearchCost();
+    inventory.deductFromResourceAmount('knowledge', warpDriveResearchCost);
+    research.researchWarpDrive();
+  };
+
 }]);

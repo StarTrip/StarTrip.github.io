@@ -24,12 +24,6 @@ StarTripApp.controller('IncrementalController', ['$scope', '$interval', 'invento
     $scope.val = interval.val();
   })*/
 
-  //research warp drive in order to build warp ships
-  $scope.researchWarpDrive = function() {
-      inventory.deductFromResourceAmount('knowledge', $scope.warpDriveResearchCost);
-      $scope.warpDriveResearched = true;
-  };
-
   //Update rate of resource acquisition
   $scope.updateAcquisitionRates = function() {
       //nuclear ships add 0.1 plutonium/s, warp ships add 0.5 plutonium/s

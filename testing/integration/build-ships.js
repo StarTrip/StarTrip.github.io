@@ -105,6 +105,16 @@ describe('Build Ships', function() {
     expect(buildWarpShipButton.isDisplayed()).toBeTruthy();
   });
 
+  it('should check that the research Warp Drive button disappears after it has been researched', function() {
+    minePlutonium(66);
+    buildNuclearShip(5);
+
+    browser.wait(researchWarpDriveButton.isEnabled, 60000);
+    researchWarpDrive();
+
+    expect(researchWarpDriveButton.isDisplayed()).toBeFalsy();
+  });
+
   it('should build a warp ship', function() {
     minePlutonium(66);
     buildNuclearShip(5);

@@ -1,0 +1,27 @@
+<div ng-controller="FleetController">
+    <h2>Your Fleet:</h2>
+      <div ng-show="getNumberOfNuclearShips()">Nuclear-Powered Ships: <span>{{getNumberOfNuclearShips()}}</span></div>
+      <div ng-show="getNumberOfWarpShips()">Warp-Drive Ships: <span>{{getNumberOfWarpShips()}}</span></div>
+
+    <h2>Build Ships:</h2>
+
+      <button id="nuclear-ship" class="btn btn-primary"
+              ng-click="buildNuclearShip()"
+              ng-disabled="buildNuclearShipButtonDisabled()"
+              data-toggle="tooltip"
+              title="Ships can explore nearby systems, gaining knowledge and mining plutonium">
+              Build Nuclear-Powered Ship
+              <br>Cost: {{getNuclearShipCost()}} plutonium
+            </button>
+
+      <button id="warp-ship" class="btn btn-primary"
+            ng-show="isWarpDriveResearched()"
+            ng-click="buildWarpShip()"
+            ng-disabled="buildWarpShipButtonDisabled()"
+            data-toggle="tooltip"
+            title="Ships can explore nearby systems, gaining knowledge and mining plutonium and dilithium">
+            Build Warp-Drive Ship
+            <br>Cost: {{getWarpShipCost()}} dilithium
+          </button>
+
+</div>

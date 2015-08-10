@@ -1,84 +1,14 @@
 <div ng-controller="IncrementalController" class="container">
+  <!-- ####### INVENTORY ####### -->
+  <div ng-include src="'modules/inventory/InventoryTemplate.html'"></div>
 
+  <!-- ####### FLEET ####### -->
+  <div ng-include src="'modules/fleet/FleetTemplate.html'"></div>
 
-  <div ng-controller="InventoryController">
-      <h2>Resources:</h2>
-        <h3>Plutonium: <span id="plutonium-count">{{getPlutonium() | number:1}}</span>
-          <small> +<span>{{plutoniumRate | number:1}}</span>/s</small>
-        </h3>
-        <h3 ng-show="getDilithium()">Dilithium: <span id="dilithium-count">{{getDilithium() | number:1}}</span>
-          <small> +<span>{{dilithiumRate | number:1}}</span>/s</small>
-        </h3>
-        <h3 ng-show="getKnowledge()">Knowledge: <span id="knowledge-count">{{getKnowledge() | number:1}}</span>
-          <small> +<span>{{knowledgeRate | number:1}}</span>/s</small>
-        </h3>
+  <!-- ####### ARMAMENT ####### -->
+  <div ng-include src="'modules/armament/ArmamentTemplate.html'"></div>
 
-      <button id="mine-plutonium" class="btn btn-primary" ng-click="minePlutonium()">Mine Plutonium</button>
-      <button id="mine-dilithium" class="btn btn-primary" ng-show="displayMineDilithiumButton()" ng-click="mineDilithium()">Mine Dilithium</button>
-  </div>
+  <!-- ####### RESEARCH ####### -->
+  <div ng-include src="'modules/research/ResearchTemplate.html'"></div>
 
-  <div ng-controller="FleetController">
-      <h2>Your Fleet:</h2>
-        <div ng-show="getNumberOfNuclearShips()">Nuclear-Powered Ships: <span>{{getNumberOfNuclearShips()}}</span></div>
-        <div ng-show="getNumberOfWarpShips()">Warp-Drive Ships: <span>{{getNumberOfWarpShips()}}</span></div>
-
-      <h2>Build Ships:</h2>
-
-        <button id="nuclear-ship" class="btn btn-primary"
-                ng-click="buildNuclearShip()"
-                ng-disabled="buildNuclearShipButtonDisabled()"
-                data-toggle="tooltip"
-                title="Ships can explore nearby systems, gaining knowledge and mining plutonium">
-                Build Nuclear-Powered Ship
-                <br>Cost: {{getNuclearShipCost()}} plutonium
-              </button>
-
-        <button id="warp-ship" class="btn btn-primary"
-              ng-show="warpDriveResearched"
-              ng-click="buildWarpShip()"
-              ng-disabled="buildWarpShipButtonDisabled()"
-              data-toggle="tooltip"
-              title="Ships can explore nearby systems, gaining knowledge and mining plutonium and dilithium">
-              Build Warp-Drive Ship
-              <br>Cost: {{getWarpShipCost()}} dilithium
-            </button>
-
-  </div>
-
-  <div ng-controller="ArmamentController">
-
-      <h2>Weapons and Shields</h2>
-
-        <button id="weapons" class="btn btn-primary"
-                ng-click="upgradeWeapons()"
-                ng-disabled="upgradeWeaponsButtonDisabled()"
-                data-toggle="tooltip"
-                title="Be prepared for an enemy attack by equipping your ship with state-of-the-art weapons!">
-                Upgrade Weapons Level {{weaponsLvl + 1 | number}}
-                <br>Cost: {{getWeaponsPlutoniumCost()}} plutonium and {{getWeaponsKnowledgeCost()}} knowledge
-              </button>
-
-        <button id="shields" class="btn btn-primary"
-                ng-click="upgradeShields()"
-                ng-disabled="upgradeShieldsButtonDisabled()"
-                data-toggle="tooltip"
-                title="Be prepared for an enemy attack by equipping your ship with state-of-the-art shields!">
-                Upgrade Shields Level {{shieldsLvl + 1 | number}}
-                <br>Cost: {{getShieldsPlutoniumCost()}} plutonium and {{getShieldsKnowledgeCost()}} knowledge
-              </button>
-  </div>
-
-  <div ng-controller="ResearchController">
-      <h2>Research:</h2>
-
-        <button id="warp-drive" class="btn btn-primary"
-                ng-show="displayResearchWarpDriveButton()"
-                ng-click="researchWarpDrive()"
-                ng-disabled="researchWarpDriveButtonDisabled()"
-                data-toggle="tooltip"
-                title="Lets you build Warp Drive Ships!">
-                Research Warp Drive
-                <br>Cost: {{warpDriveResearchCost}} knowledge
-              </button>
-  </div>
 </div>

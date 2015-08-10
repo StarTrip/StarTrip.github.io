@@ -1,0 +1,22 @@
+<div ng-controller="ArmamentController">
+
+    <h2>Weapons and Shields</h2>
+
+      <button id="weapons" class="btn btn-primary"
+              ng-click="upgradeWeapons()"
+              ng-disabled="upgradeWeaponsButtonDisabled()"
+              data-toggle="tooltip"
+              title="Be prepared for an enemy attack by equipping your ship with state-of-the-art weapons!">
+              Upgrade Weapons Level {{weaponsLvl + 1 | number}}
+              <br>Cost: {{getWeaponsPlutoniumCost()}} plutonium and {{getWeaponsKnowledgeCost()}} knowledge
+            </button>
+
+      <button id="shields" class="btn btn-primary"
+              ng-click="upgradeShields()"
+              ng-disabled="upgradeShieldsButtonDisabled()"
+              data-toggle="tooltip"
+              title="Be prepared for an enemy attack by equipping your ship with state-of-the-art shields!">
+              Upgrade Shields Level {{shieldsLvl + 1 | number}}
+              <br>Cost: {{getShieldsPlutoniumCost()}} plutonium and {{getShieldsKnowledgeCost()}} knowledge
+            </button>
+</div>
