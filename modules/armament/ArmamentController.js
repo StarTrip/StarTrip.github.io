@@ -14,7 +14,7 @@ StarTripApp.controller('ArmamentController', ['$scope', 'inventory', function($s
   };
 
   $scope.getWeaponsKnowledgeCost = function(){
-    return $scope.weaponshKnowledgeCost;
+    return $scope.weaponsKnowledgeCost;
   };
 
   $scope.getShieldsPlutoniumCost = function(){
