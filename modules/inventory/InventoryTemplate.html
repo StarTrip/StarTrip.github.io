@@ -1,0 +1,15 @@
+<div ng-controller="InventoryController">
+    <h2>Resources:</h2>
+      <h3>Plutonium: <span id="plutonium-count">{{getPlutonium() | number:1}}</span>
+        <small> +<span>{{plutoniumRate | number:1}}</span>/s</small>
+      </h3>
+      <h3 ng-show="getDilithium()">Dilithium: <span id="dilithium-count">{{getDilithium() | number:1}}</span>
+        <small> +<span>{{dilithiumRate | number:1}}</span>/s</small>
+      </h3>
+      <h3 ng-show="getKnowledge()">Knowledge: <span id="knowledge-count">{{getKnowledge() | number:1}}</span>
+        <small> +<span>{{knowledgeRate | number:1}}</span>/s</small>
+      </h3>
+
+    <button id="mine-plutonium" class="btn btn-primary" ng-click="minePlutonium()">Mine Plutonium</button>
+    <button id="mine-dilithium" class="btn btn-primary" ng-show="displayMineDilithiumButton()" ng-click="mineDilithium()">Mine Dilithium</button>
+</div>

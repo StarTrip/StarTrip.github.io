@@ -1,0 +1,13 @@
+<div ng-controller="ResearchController">
+    <h2>Research:</h2>
+
+      <button id="warp-drive" class="btn btn-primary"
+              ng-show="displayResearchWarpDriveButton()"
+              ng-click="researchWarpDrive()"
+              ng-disabled="researchWarpDriveButtonDisabled()"
+              data-toggle="tooltip"
+              title="Lets you build Warp Drive Ships!">
+              Research Warp Drive
+              <br>Cost: {{getWarpDriveResearchCost()}} knowledge
+            </button>
+</div>
