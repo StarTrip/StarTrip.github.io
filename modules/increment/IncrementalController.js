@@ -1,4 +1,4 @@
-StarTripApp.controller('IncrementalCtrl', ['$scope', '$interval', 'inventory', 'fleet', function($scope, $interval, inventory, fleet){
+StarTripApp.controller('IncrementalController', ['$scope', '$interval', 'inventory', 'fleet', function($scope, $interval, inventory, fleet){
   // Basic variable declaration - keep track of how many of each
   // item we currently own, and how much the new ones should cost.
 
@@ -12,15 +12,17 @@ StarTripApp.controller('IncrementalCtrl', ['$scope', '$interval', 'inventory', '
   $scope.dilithiumRate = 0;
   $scope.knowledgeRate = 0;
 
-  //research costs
-  $scope.warpDriveResearchCost = 10;
+  /*
+  if you use a service
+  POSSIBLY BAD: $scope.val = interval.val;
 
-  //Tech track
-  $scope.warpDriveResearched = false;
 
-  $scope.displayResearchWarpDriveButton = function(){
-    return (fleet.getNumberOfShips('nuclear') >= 5 && !$scope.warpDriveResearched);
-  };
+  $scope.$watch(function(){
+    return interval.val();
+  },
+  function(){
+    $scope.val = interval.val();
+  })*/
 
   //research warp drive in order to build warp ships
   $scope.researchWarpDrive = function() {
@@ -31,11 +33,11 @@ StarTripApp.controller('IncrementalCtrl', ['$scope', '$interval', 'inventory', '
   //Update rate of resource acquisition
   $scope.updateAcquisitionRates = function() {
       //nuclear ships add 0.1 plutonium/s, warp ships add 0.5 plutonium/s
-      $scope.plutoniumRate = ($scope.numNuclearShips * 1/10 + $scope.numWarpShips * 5/10);
+      $scope.plutoniumRate = (fleet.getNumberOfShips('nuclear') * 1/10 + fleet.getNumberOfShips('warp') * 5/10);
       //warp ships add 0.1 dilithium/s
-      $scope.dilithiumRate = ($scope.numWarpShips * 1/10);
+      $scope.dilithiumRate = (fleet.getNumberOfShips('warp') * 1/10);
       // nuclear ships add 0.1 knowledge per second, warp ships add 0.2 knowledge per second
-      $scope.knowledgeRate = ($scope.numNuclearShips * 1 / 10 + $scope.numWarpShips * 2/10);
+      $scope.knowledgeRate = (fleet.getNumberOfShips('nuclear') * 1 / 10 + fleet.getNumberOfShips('warp') * 2/10);
   };
 
   // Run UI update code every 10ms

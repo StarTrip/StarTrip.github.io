@@ -41,7 +41,7 @@ describe('Build Ships', function() {
     minePlutonium(10);
     buildNuclearShip(1);
 
-    expect(element(by.binding('numNuclearShips')).getText()).
+    expect(element(by.binding('getNumberOfNuclearShips()')).getText()).
         toEqual('1');
   });
 
@@ -57,7 +57,7 @@ describe('Build Ships', function() {
     minePlutonium(66);
     buildNuclearShip(5);
 
-    expect(element(by.binding('numNuclearShips')).getText()).
+    expect(element(by.binding('getNumberOfNuclearShips()')).getText()).
         toEqual('5');
   });
 
@@ -76,6 +76,24 @@ describe('Build Ships', function() {
     expect(element(by.binding('knowledgeRate')).getText()).
         toEqual('0.1');
   });
+
+  it('should check that research Warp Drive button is disabled if not enough knowledge', function() {
+    minePlutonium(66);
+    buildNuclearShip(5);
+
+    expect(researchWarpDriveButton.isEnabled()).toBeFalsy();
+  });
+
+/* TODO: fix this test
+  it('should check that research Warp Drive button is enabled if enough knowledge', function() {
+    minePlutonium(66);
+    buildNuclearShip(5);
+    //expect(element(by.id('plutonium-count')).getText()).toEqual('1.0');
+    browser.wait(element(by.id('knowledge-count')).getText() == '10.0', 60000);
+
+    expect(researchWarpDriveButton.isEnabled()).toBeTruthy();
+  });
+*/
 
   it('should research Warp Drive', function() {
     minePlutonium(66);
@@ -96,7 +114,7 @@ describe('Build Ships', function() {
     mineDilithium(10);
     buildWarpShip(1);
 
-    expect(element(by.binding('numWarpShips')).getText()).
+    expect(element(by.binding('getNumberOfWarpShips()')).getText()).
         toEqual('1');
   });
   it('should build a warp ship, then check the dilithium rate', function() {

@@ -28,4 +28,8 @@ StarTripApp.service('inventory', function(){
     return dilithiumPerClick;
   };
 
+  this.displayMineDilithiumButton = function(numNuclearShips){
+    return numNuclearShips >= 5;
+  };
+
 });
