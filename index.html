@@ -7,29 +7,32 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body ng-app="StarTripApp">
+  <!-- <div ng-include="'templates/app.html'">
+
+  </div> -->
   <div ng-controller="IncrementalController" class="container">
 
 
     <div ng-controller="InventoryController">
         <h2>Resources:</h2>
           <h3>Plutonium: <span id="plutonium-count">{{getPlutonium() | number:1}}</span>
-            <small> +{{plutoniumRate | number:1}}/s</small>
+            <small> +<span>{{plutoniumRate | number:1}}</span>/s</small>
           </h3>
           <h3 ng-show="getDilithium()">Dilithium: <span id="dilithium-count">{{getDilithium() | number:1}}</span>
-            <small> +{{dilithiumRate | number:1}}/s</small>
+            <small> +<span>{{dilithiumRate | number:1}}</span>/s</small>
           </h3>
           <h3 ng-show="getKnowledge()">Knowledge: <span id="knowledge-count">{{getKnowledge() | number:1}}</span>
-            <small> +{{knowledgeRate | number:1}}/s</small>
+            <small> +<span>{{knowledgeRate | number:1}}</span>/s</small>
           </h3>
 
         <button id="mine-plutonium" class="btn btn-primary" ng-click="minePlutonium()">Mine Plutonium</button>
-        <button id="mine-dilithium" class="btn btn-primary" ng-show="inventory.displayMineDilithiumButton()" ng-click="mineDilithium()">Mine Dilithium</button>
+        <button id="mine-dilithium" class="btn btn-primary" ng-show="displayMineDilithiumButton()" ng-click="mineDilithium()">Mine Dilithium</button>
     </div>
 
     <div ng-controller="FleetController">
         <h2>Your Fleet:</h2>
-          <div ng-show="getNumberOfNuclearShips()">Nuclear-Powered Ships: {{getNumberOfNuclearShips()}}</div>
-          <div ng-show="getNumberOfWarpShips()">Warp-Drive Ships: {{getNumberOfWarpShips()}}</div>
+          <div ng-show="getNumberOfNuclearShips()">Nuclear-Powered Ships: <span>{{getNumberOfNuclearShips()}}</span></div>
+          <div ng-show="getNumberOfWarpShips()">Warp-Drive Ships: <span>{{getNumberOfWarpShips()}}</span></div>
 
         <h2>Build Ships:</h2>
 
@@ -77,19 +80,19 @@
                 </button>
     </div>
 
-    <!--<div ng-controller="ResearchController"> -->
+    <div ng-controller="ResearchController">
         <h2>Research:</h2>
 
           <button id="warp-drive" class="btn btn-primary"
                   ng-show="displayResearchWarpDriveButton()"
                   ng-click="researchWarpDrive()"
-                  ng-disabled="warpDriveResearchCost > getKnowledge()"
+                  ng-disabled="researchWarpDriveButtonDisabled()"
                   data-toggle="tooltip"
                   title="Lets you build Warp Drive Ships!">
                   Research Warp Drive
                   <br>Cost: {{warpDriveResearchCost}} knowledge
                 </button>
-    <!-- </div> -->
+    </div>
   </div>
 
   <!-- angular -->
@@ -99,14 +102,15 @@
   <script src="js/app.js"></script>
 
   <!-- Services -->
-  <script src="js/services/inventory.js"></script>
-  <script src="js/services/fleet.js"></script>
+  <script src="modules/inventory/InventoryService.js"></script>
+  <script src="modules/fleet/FleetService.js"></script>
+  <script src="modules/research/ResearchService.js"></script>
 
   <!-- Controllers -->
-  <script src="js/controllers/IncrementalController.js"></script>
-  <script src="js/controllers/InventoryController.js"></script>
-  <script src="js/controllers/FleetController.js"></script>
-  <script src="js/controllers/ArmamentController.js"></script>
-  <script src="js/controllers/ResearchController.js"></script>
+  <script src="modules/increment/IncrementalController.js"></script>
+  <script src="modules/inventory/InventoryController.js"></script>
+  <script src="modules/fleet/FleetController.js"></script>
+  <script src="modules/armament/ArmamentController.js"></script>
+  <script src="modules/research/ResearchController.js"></script>
 </body>
 </html>

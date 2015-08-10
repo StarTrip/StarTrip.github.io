@@ -23,7 +23,7 @@ StarTripApp.controller('InventoryController', ['$scope', 'inventory', 'fleet', f
   };
 
   $scope.displayMineDilithiumButton = function(){
-      return fleet.getNumberOfShips('nuclear') >= 5;
+      return inventory.displayMineDilithiumButton(fleet.getNumberOfShips('nuclear'));
   };
 
 
