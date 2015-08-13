@@ -1,0 +1,3 @@
+StarTripApp.service('increment', function(){
+
+});

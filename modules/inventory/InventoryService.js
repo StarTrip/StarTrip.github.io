@@ -5,6 +5,8 @@ StarTripApp.service('inventory', function(){
   //How much dilithium is added per click
   var dilithiumPerClick = 1;
 
+  var NUM_NUCLEAR_SHIPS_TO_SHOW_MINE_DILITHIUM_BUTTON = 5;
+
   //Returns the number of resources of type resourceName (e.g. plutonium, dilithium, etc)
   this.getResourceAmount = function(resourceName){
     return resources[resourceName];
@@ -29,7 +31,7 @@ StarTripApp.service('inventory', function(){
   };
 
   this.displayMineDilithiumButton = function(numNuclearShips){
-    return numNuclearShips >= 5;
+    return numNuclearShips >= NUM_NUCLEAR_SHIPS_TO_SHOW_MINE_DILITHIUM_BUTTON;
   };
 
 });
