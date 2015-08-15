@@ -4,8 +4,8 @@ StarTripApp.service('research', function(){
   //research costs
   var warpDriveResearchCost = 10;
 
-  this.displayResearchWarpDriveButton = function(numNuclearShips){
-    return (numNuclearShips >= 5 && !warpDriveResearched);
+  this.displayResearchWarpDriveButton = function(numNuclearShips, numNuclearShipsToShowMineDilithiumButton){
+    return (numNuclearShips >= numNuclearShipsToShowMineDilithiumButton && !warpDriveResearched);
   };
 
   this.researchWarpDriveButtonDisabled = function(knowledgeCount){

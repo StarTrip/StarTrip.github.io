@@ -1,6 +1,6 @@
 StarTripApp.controller('ResearchController', ['$scope', 'research', 'fleet', 'inventory', function($scope, research, fleet, inventory){
   $scope.displayResearchWarpDriveButton = function(){
-    return research.displayResearchWarpDriveButton(fleet.getNumberOfShips('nuclear'));
+    return research.displayResearchWarpDriveButton(fleet.getNumberOfShips('nuclear'), inventory.getNumNuclearShipsToShowMineDilithiumButton());
   };
 
   $scope.researchWarpDriveButtonDisabled = function(){
